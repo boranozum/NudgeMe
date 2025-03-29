@@ -64,6 +64,9 @@ class DestroyMixin(DestroyModelMixin):
 
 
 class PaginationMixin:
+    """
+    Pagination mixin for viewsets.
+    """
     def paginated_action(self, request, serializer_class, queryset):
         page = self.paginate_queryset(queryset)
 
@@ -91,10 +94,15 @@ class PaginationMixin:
 
 
 class MultiActionMixin:
-    @action(detail=False, methods=['post'], url_path='update')
+    @action(detail=False, methods=['put', 'patch'], url_path='update')
     def multi_update(self, request):
-        pks = request.query_params.get("pks", "").split(",")
-        if pks is None:
+        """
+        Handles update operations of the records that are provided in the payload.
+
+        :param request: Request object
+        """
+        pks = request.data.pop("pks", [])
+        if not pks:
             return Response(
                 status=HTTP_400_BAD_REQUEST,
                 message="No PKs provided"
@@ -126,8 +134,13 @@ class MultiActionMixin:
 
     @action(detail=False, methods=['delete'], url_path='delete')
     def multi_delete(self, request):
-        pks = request.query_params.get("pks", "").split(",")
-        if pks is None:
+        """
+        Handles delete operations of the records that are provided in the payload.
+
+        :param request: Request object
+        """
+        pks = request.data.pop("pks", [])
+        if not pks:
             return Response(
                 status=HTTP_400_BAD_REQUEST,
                 message="No PKs provided"

@@ -1,3 +1,5 @@
+import socket
+
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from rest_framework.decorators import action
@@ -8,9 +10,9 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
 from rest_framework import status
 
-from accounts.models import UserVerification, User
+from accounts.models import UserVerification, User, LoginAttempt
 from accounts.serializers.user import UserSerializer
-from accounts.utils.functions import generate_verification_token
+from accounts.utils.functions import generate_verification_token, log_login_attempt
 from base.response import Response
 from base.utils import send_email
 
@@ -50,6 +52,7 @@ class RegisterView(GenericAPIView):
             message=f"Registration successful. An email is sent to {request.data['email']} for verification.",
             content=user_serializer.data
         )
+
 
 class UserVerificationViewSet(GenericViewSet):
     permission_classes = ()
@@ -103,8 +106,6 @@ class UserVerificationViewSet(GenericViewSet):
         )
 
 
-
-
 class LoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -119,11 +120,15 @@ class LoginView(TokenObtainPairView):
                 )
 
         except TokenError as e:
+            log_login_attempt(request, False)
             raise InvalidToken(e.args[0])
         except Exception as e:
+            log_login_attempt(request, False)
             raise e
         finally:
             del request.data["password"]
+
+        log_login_attempt(request, True)
 
         return Response(
             status=status.HTTP_200_OK,

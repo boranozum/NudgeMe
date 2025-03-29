@@ -25,7 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
             'is_deleted',
         ]
         read_only_fields = [
-            'is_active',
             'is_superuser',
             'date_joined',
             'last_login',
@@ -36,9 +35,10 @@ class UserSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        if attrs.get('password') != attrs.get('confirm_password'):
-            raise serializers.ValidationError('Passwords do not match')
-        attrs.pop('confirm_password')
+        if attrs.get("password"):
+            if attrs.get('password') != attrs.get('confirm_password'):
+                raise serializers.ValidationError('Passwords do not match')
+            attrs.pop('confirm_password')
         return super().validate(attrs)
 
     def create(self, validated_data):

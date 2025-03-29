@@ -14,5 +14,6 @@ class BaseViewSet(
 ):
     permission_classes = (BaseModelPermission,)
     filter_backends = [SearchFilter, OrderingFilter]
+    only_superuser = False
 
 

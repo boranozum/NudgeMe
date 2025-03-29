@@ -18,10 +18,10 @@ class BaseModelPermission(IsAuthenticatedPermission):
         if not is_authenticated:
             return False
 
-        if request.user.is_superuser:
-            return True
+        if getattr(view, 'only_superuser', False) and not request.user.is_superuser:
+            return False
 
-        if getattr(view, 'only_superuser', False) and (permission_name := getattr(view, 'permission_name', None)):
+        if not getattr(view, 'only_superuser', False) and (permission_name := getattr(view, 'permission_name', None)):
             return request.user.has_perm(f"accounts.{permission_name}")
 
         return True
