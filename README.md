@@ -7,7 +7,7 @@ Follow these steps to set up and run the project:
 ### 1. Clone the Project
 Clone the repository from GitHub:
 ```sh
-git clone <repository_url>
+git clone git@github.com:boranozum/NudgeMe.git
 ```
 
 ### 2. Navigate into the project directory
