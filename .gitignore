@@ -1,0 +1,8 @@
+backend/static/
+.idea
+__pycache__
+backend/media/
+migrations
+backend/.env
+backend/data_etc
+.DS_Store

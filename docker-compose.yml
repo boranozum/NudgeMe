@@ -1,0 +1,49 @@
+services:
+  db:
+    container_name: nudgeme_postgres
+    image: postgres:14
+    volumes:
+      - nudgeme_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "26543:5432"
+    environment:
+      - POSTGRES_DB=nudgeme
+      - POSTGRES_USER=nudgeme
+      - POSTGRES_PASSWORD=12345
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+
+  app:
+    container_name: nudgeme_app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: nudgeme-app
+    ports:
+      - "8654:8000"
+    volumes:
+      - ./backend:/app/
+    env_file:
+      - ./backend/dev.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    command: ["/entrypoint/run_dev.sh"]
+
+
+volumes:
+  nudgeme_postgres_data:
+    driver: local
+
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
