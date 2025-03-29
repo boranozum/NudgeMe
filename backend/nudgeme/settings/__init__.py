@@ -15,4 +15,5 @@ include(
         'config/api.py',
         'config/media.py',
         'config/auth.py',
+        'config/email.py',
 )

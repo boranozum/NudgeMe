@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
+from django.utils import timezone
 
 
 def create_permissions(**kwargs):
@@ -16,6 +17,7 @@ def create_permissions(**kwargs):
         defaults={
             "is_superuser": True,
             "username": "admin",
+            "verified_at": timezone.now(),
         },
     )
     user.set_password(settings.ADMIN_PASSWORD)

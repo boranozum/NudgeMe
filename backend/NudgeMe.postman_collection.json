@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"12345\"\n}",
+							"raw": "{\n    \"username\": \"test_user1\",\n    \"password\": \"test1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,7 +103,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDYzMjQzNywiaWF0IjoxNzE0NjMyMTM3LCJqdGkiOiJlY2NkNWM0NmVlZjc0ZjY3YmY2OGU3YTU3YWI5MjQxNyIsInVzZXJfaWQiOjB9.l2h2wyIprsaOOan8QowBRNyTpTSs2C8gPoAAYY-4OLw\"\n}",
+							"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MzMyNzYwNCwiaWF0IjoxNzQzMjQxMjA0LCJqdGkiOiIxYTgzOTU5MTc4ZDU0YTcyYWU2MmEwODZhOGE3ZTM1OSIsInVzZXJfaWQiOjB9.OLZgms46O6N1BXAWtxPvgMETrCYwZbb2j254rqM05IY\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,8 +128,20 @@
 				{
 					"name": "Register",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test_user1\",\n    \"password\": \"test1234\",\n    \"confirm_password\": \"test1234\",\n    \"first_name\": \"test\",\n    \"last_name\": \"test\",\n    \"email\": \"boranozumdev@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE}}/accounts/register/",
 							"host": [
@@ -138,6 +150,67 @@
 							"path": [
 								"accounts",
 								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 3,\n    \"token\": 288903\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/accounts/verification/verify/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"accounts",
+								"verification",
+								"verify",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Verification Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/accounts/verification/resend/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"accounts",
+								"verification",
+								"resend",
 								""
 							]
 						}
