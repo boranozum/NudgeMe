@@ -4,6 +4,7 @@ if "INSTALLED_APPS" not in locals():
 # noinspection PyUnboundLocalVariable
 PROJECT_APPS = [
     "accounts",
+    "events",
     # 3rd Party Apps
     'corsheaders',
     'drf_spectacular',
