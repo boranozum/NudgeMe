@@ -24,4 +24,5 @@ urlpatterns = [
     path("api/meta/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/meta/swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger"),
     path("api/meta/doc/", SpectacularRedocView.as_view(url_name="schema"), name="doc"),
+    path("api/events/", include('events.urls')),
 ]

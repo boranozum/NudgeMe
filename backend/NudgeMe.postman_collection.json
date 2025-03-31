@@ -16,9 +16,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"let response = JSON.parse(pm.response.text);",
-									"pm.environment.set(\"access_token\", response.access)",
-									"pm.environment.set(\"refresh_token\", response.refresh)",
+									"let response = pm.response.json();",
+									"pm.environment.set(\"access_token\", response.content.access);",
+									"pm.environment.set(\"refresh_token\", response.content.refresh);",
 									""
 								],
 								"type": "text/javascript",
@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"test_user1\",\n    \"password\": \"test1234\"\n}",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,6 +218,521 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/accounts/users/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"accounts",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/accounts/users/1/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"accounts",
+								"users",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Users",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pks\": [3],\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/accounts/users/update/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"accounts",
+								"users",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Users",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pks\": [3]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/accounts/users/delete/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"accounts",
+								"users",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Event Types",
+					"item": [
+						{
+							"name": "Get Event Types",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/types/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"types",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Event Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/types/1",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create an Event Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/types/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"types",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update an Event Type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/types/1",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partially Update an Event Type",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/types/1",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete an Event Type",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/types/1",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Event Categories",
+					"item": [
+						{
+							"name": "Get Event Categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/categories/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"categories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Event Category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/categories/1/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"categories",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create an Event Category",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Test Category\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE}}/events/categories/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"categories",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update an Event Category",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Test Category Updated\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE}}/events/categories/1/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"categories",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partially Update an Event Category",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Test Category Updated v2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE}}/events/categories/1/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"categories",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete an Event Category",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/events/categories/1/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"events",
+										"categories",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/events/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/events/1/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"events",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test Event 1\",\n    \"description\": \"Test Event description\",\n    \"start_dt\": \"2025-03-31 19:18:01\",\n    \"end_dt\": \"2025-03-31 21:18:01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/events/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Event",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test Event 2\",\n    \"description\": \"Test Event description\",\n    \"start_dt\": \"2025-03-31 19:18:01\",\n    \"end_dt\": \"2025-03-31 21:18:01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/events/1/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"events",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Partially Update an Event",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Test Event description updated\",\n    \"start_dt\": \"2025-03-31 20:18:01\",\n    \"event_category\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/events/2/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"events",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/events/1/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"events",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -257,6 +772,11 @@
 			"key": "BASE",
 			"value": "http://localhost:8654/api",
 			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzNDQ0MzMzLCJpYXQiOjE3NDM0NDA3MzMsImp0aSI6IjkxMzZmZWVmZmE5ZDQwN2I4Y2RlZWRjMDRjY2Y1NTA3IiwidXNlcl9pZCI6MH0.7d2zFjghCq-X3YzWuqlXYRTOUXO46Ccy-fVrmD-jGKw",
+			"type": "default"
 		}
 	]
 }
